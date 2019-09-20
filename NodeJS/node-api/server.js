@@ -1,5 +1,6 @@
-// Reiniciar o servidor toda vez que salvar uma alteração no arquivo
+// Reinicia o servidor toda vez que salvar uma alteração no arquivo
 // npm install -D nodemon
+// npm run dev
  
 const express = require('express');
 

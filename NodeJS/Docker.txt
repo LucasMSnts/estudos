@@ -1,0 +1,19 @@
+Baixar container da funcionalidade (ex.: mongo):
+docker pull mongo
+
+Subir uma nova maquina virtual/ um novo container contendo esssa funcionalidade
+docker run --name mongodb -p 27017:27017 -d mongo
+
+	--name -> o nome que vc quer salvar o container
+	-p -> redirecionar a porta da maquina para a porta da funcionalidade (27017 é padrão do Docker)
+	-d -> a imagem que irá utilizar
+
+Vê quais imagens estão rodando:
+docker ps
+
+Olhar todas as imagens (até as que estão paradas):
+docker ps -a
+
+Iniciar uma imagem parada:
+docker start imagemdb
+
