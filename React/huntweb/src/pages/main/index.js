@@ -11,17 +11,35 @@ export default class Main extends Component {
         page: 1,
     }
 
-    componentDidMount() {
-        this.loadProducts();
+    componentDidMount() {        
+        this.loadProducts();        
     }
 
     loadProducts = async (page = 1) => {
-        const response = await api.get(`/products?page=${page}`);
+        this.setLoading();
+        try {
+            const response = await api.get(`/products?page=${page}`);
 
-        const { docs, ...productInfo } = response.data;
+            const { docs, ...productInfo } = response.data;
 
-        this.setState({ products: docs, productInfo, page });
+            this.setState({ products: docs, productInfo, page });
+        } catch (err) {
+            alert('Erro ao carregar');
+        }
+        this.setLoading(false);
     };
+
+    setLoading(loading = true) {
+        if (loading === true) {
+            let loadingEl = document.createElement('p');
+            loadingEl.appendChild(document.createTextNode('Carregando...'));
+            loadingEl.setAttribute('id', 'loading');
+
+            document.getElementById('list').appendChild(loadingEl);
+        } else {
+            document.getElementById('loading').remove();
+        }
+    }
 
     prevPage = () => {
         const { page } = this.state;
@@ -48,7 +66,7 @@ export default class Main extends Component {
 
         //return <h1>Contagem de produtos: {this.state.products.length}</h1>;
         return (
-            <div className="product-list">
+            <div className="product-list" id="list">
                 {products.map(product => (
                     <article key={product._id}>
                         <strong>{product.title}</strong>
