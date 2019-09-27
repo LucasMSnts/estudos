@@ -8,6 +8,11 @@ export default class Main extends Component {
         title: "JSHunt"
     };
 
+    state = {
+        counter: 0,
+        docs: [],
+    };
+
     componentDidMount() {
         this.loadProducts();
     }
@@ -17,13 +22,16 @@ export default class Main extends Component {
 
         const { docs } = response.data;
 
-        console.log(docs)
+        this.setState({ counter: docs.length, docs });
     };
     
     render() {
         return (
             <View>
-                <Text>Página Main</Text>
+                <Text>Página Main: {this.state.counter}</Text>
+                {this.state.docs.map(product => (
+                     <Text key={product._id}>{product.title}</Text>
+                ))}
             </View>
         );
     }
