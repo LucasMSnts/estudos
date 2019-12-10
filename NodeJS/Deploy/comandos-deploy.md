@@ -88,36 +88,36 @@ docker run --name redis -p 6379:6379 -d -t redis:alpine
 ```
 
 
-	Entrar no Postgres pelo docker:
-	```
-	docker exec -i -t postgres /bin/sh
-	```
+##### Entrar no Postgres pelo docker:
+	
+docker exec -i -t postgres /bin/sh
+	
 
-	Acessar o usuario postgres (usuario padrão do Postgres)
-	```
+##### Acessar o usuario postgres (usuario padrão do Postgres)
+	
 	su postgres
-	```
+	
 
-	Acessar as "tabelas" do Postgres
-	```
+##### Acessar as "tabelas" do Postgres
+	
 	psql
-	```
 	
-		Criar banco de dados:
-		```
-		CREATE DATABASE bootcampnodejs;
-		```
-		
-		Sair das "tabelas"
-		```
-		\q
-		```
 	
-	Sair do usuario postgres e do Postgres
-	```
-	exit
-	exit
-	```
+###### Criar banco de dados:
 
+	CREATE DATABASE bootcampnodejs;
+	
+		
+###### Sair das "tabelas"
+	
+	\q
+		
+	
+###### Sair do usuario postgres e do Postgres
+	
+	exit
+	exit
+	
+	
 # Rodando servidor 
 
