@@ -90,7 +90,7 @@ docker run --name redis -p 6379:6379 -d -t redis:alpine
 
 ##### Entrar no Postgres pelo docker:
 	
-docker exec -i -t postgres /bin/sh
+	docker exec -i -t postgres /bin/sh
 	
 
 ##### Acessar o usuario postgres (usuario padrão do Postgres)
@@ -121,3 +121,12 @@ docker exec -i -t postgres /bin/sh
 	
 # Rodando servidor 
 
+##### Adicionar a build no projeto e iniciar-lo:
+	"build": "sucrase ./src -d ./dist --transforms imports",
+    	"start": "node dist/server.js"
+	
+##### Abrir a porta 3333 no servidor para permitir acessos externos:
+	sudo ufw allow 3333
+
+##### Rodar o sequelize no Servidor
+	npx sequelize db:migrate
