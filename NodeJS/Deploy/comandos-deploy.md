@@ -121,12 +121,31 @@ docker run --name redis -p 6379:6379 -d -t redis:alpine
 	
 # Rodando servidor 
 
-##### Adicionar a build no projeto e iniciar-lo:
+Adicionar a build no projeto e iniciar-lo:
 	"build": "sucrase ./src -d ./dist --transforms imports",
-    	"start": "node dist/server.js"
+	"start": "node dist/server.js"
 	
-##### Abrir a porta 3333 no servidor para permitir acessos externos:
+Abrir a porta 3333 no servidor para permitir acessos externos:
 	sudo ufw allow 3333
 
-##### Rodar o sequelize no Servidor
+Rodar o sequelize no Servidor
 	npx sequelize db:migrate
+
+# Dicas do SSH
+
+###### Ver os processos rodando na porta 3333
+	lsof -i :3333
+###### Parar o processo
+	kill -9 13755 (o PID)
+
+### Deixando a sessão do SSH com um tempo maior 
+Acessar o arquivo ```/etc/ssh/sshd_config``` através do ```vim```
+
+Adicionar as seguintes linhas:
+```
+ClientAliveInterval 30
+KeepAlive yes
+ClientAliveCountMax 99999
+```
+
+Depois reiniciar o SSH: ```service sshd restart```
