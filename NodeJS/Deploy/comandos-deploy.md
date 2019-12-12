@@ -122,14 +122,20 @@ docker run --name redis -p 6379:6379 -d -t redis:alpine
 # Rodando servidor 
 
 Adicionar a build no projeto e iniciar-lo:
-	"build": "sucrase ./src -d ./dist --transforms imports",
-	"start": "node dist/server.js"
+```
+"build": "sucrase ./src -d ./dist --transforms imports",
+"start": "node dist/server.js"
+```
 	
 Abrir a porta 3333 no servidor para permitir acessos externos:
-	sudo ufw allow 3333
+```
+sudo ufw allow 3333
+```
 
 Rodar o sequelize no Servidor
-	npx sequelize db:migrate
+```
+npx sequelize db:migrate
+```
 
 # Dicas do SSH
 
@@ -192,3 +198,31 @@ Reiniciar o serviço: ```sudo service nginx restart```
 
 Para saber se a configuração deu certo: ```sudo nginx -t```
 
+# Utilizando PM2
+Manter a aplicação rodando independente se o servidor é fechado ou reiniciado
+
+Instalar PM2
+``` 
+sudo npm install -g pm2
+```
+
+Iniciar o PM2 (inserir o arquivo que irá executar):
+ ```
+ pm2 start dist/server.js
+ ```
+
+Listar os processos executados: 
+```
+pm2 list
+```
+
+Habilitar quando o servidor for reiniciado e não precisar executar o comando outra vez: 
+```
+pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u deploy --hp /home/deploy
+```
+
+Quando adicionar novos comandos na lista
+```pm2 save```
+
+Ver logs dos comandos da lista: ```pm2 monit```
