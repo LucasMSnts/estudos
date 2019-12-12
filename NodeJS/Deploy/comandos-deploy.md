@@ -149,3 +149,46 @@ ClientAliveCountMax 99999
 ```
 
 Depois reiniciar o SSH: ```service sshd restart```
+
+# Configurando NGINX
+###### O que é NGINX?
+NGINX, pronunciado “engine-ex,” é um famoso software de código aberto para servidores web lançado originalmente para navegação HTTP. Hoje, porém, ele também funciona como proxy reverso, balanceador de carga HTTP, e proxy de email para os protocolos IMAP, POP3, e SMTP. [Mais informações](https://www.hostinger.com.br/tutoriais/o-que-e-nginx/)
+
+Instalar o NGINX:
+```
+sudo apt install nginx
+```
+
+Liberar a ṕorta 80:
+```
+sudo ufw allow 80
+```
+
+#### Redirecionar a porta 80 para 3333:
+Acessar o arquivo default através do vim: 
+```
+sudo vim /etc/nginx/sites-available/default
+``` 
+
+Deixar o arquivo nas seguintes configurações: 
+```
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name _;
+
+        location / {
+		proxy_pass http://localhost:3333;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+        }
+}
+```
+Reiniciar o serviço: ```sudo service nginx restart```
+
+Para saber se a configuração deu certo: ```sudo nginx -t```
+
