@@ -226,3 +226,23 @@ Quando adicionar novos comandos na lista
 ```pm2 save```
 
 Ver logs dos comandos da lista: ```pm2 monit```
+
+# Integração contínua
+Toda vez que enviar um commit no github do projeto, o servidor atualizar sozinho
+(Alguns serviços para integração: TravisCI, CircleCI, buddy.works, ...) 
+
+###### Utilizando Buddy.Works
+
+No 'Login' colocar ```deploy``` (Criou o usuario no servidor)
+
+No 'Authentication mode' deixar 'Buddy's SSH key' e executar o codigo gerado no servidor
+
+Quando chegar na parte de digitar os comandos do SSH:
+```
+npm install
+npm run build
+npx sequelize db:migrate
+pm2 restart server
+```
+
+ps.: Deixar uma ação no começo com NodeJS para fazer os testes, assim a atualização, se tiver erros, não irá ao servidor
